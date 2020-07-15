@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 #configuração do banco
 app.config['MONGODB_SETTINGS'] = {
-    'host':'mongodb://127.0.0.1:27017/movies_test'
+    'host':'mongodb://127.0.0.1:27017/movies_api'
 }
 initialize_db(app)
 
@@ -29,13 +29,13 @@ def add_movie():
 def update_movie(id):
     body=request.get_json()
     Movie.objects.get(id=id).update(**body)
-    return {"Update Complete"}, 200
+    return 'Update Complete', 200
 
 #remove o filme
 @app.route('/movies/<id>', methods=['DELETE'])
 def delete_movie(id):
     Movie.objects.get(id=id).delete()
-    return {"Delete OK"}, 200
+    return 'Delete OK', 200
 
 #buscando apenas um filme
 def get_movie(id):
